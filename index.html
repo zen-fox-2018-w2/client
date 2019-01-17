@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>LibShare</title>
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+  <!-- Custom styles for this template -->
+
+  <link href="css/shop-item.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- Navigation -->
+    <navbar></navbar>
+    <!-- n Navigation -->
+
+    <!-- Page Content -->
+    <div class="container">
+      <!--search Content -->
+      <search></search>
+      <!-- n search Content -->
+
+      <!--Content profile -->
+      <div class="row">
+
+        <!--profile -->
+        <book_collections></book_collections>
+        <!-- n profile -->
+
+        <!-- list Book -->
+        <books></books>
+        <!-- n list Book -->
+      </div>
+      <!-- n Content profile -->
+
+    </div>
+    <!-- Page Content -->
+  </div>
+
+  <script src="components/books.js"></script>
+  <script src="components/navbar.js"></script>
+  <script src="components/search.js"></script>
+  <script src="components/book_collections.js"></script>
+  <script src="scripts/script.js"></script>
+</body>
+
+</html>
