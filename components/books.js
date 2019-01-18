@@ -1,24 +1,14 @@
 Vue.component('books', {
     data: function () {
         return {
-          books: ""
+            books: ""
         }
     },
-    props: ['url'],
+    props: ['url', 'books'],
     methods: {
-      getBooks() {
-        axios.get(`http://localhost:3000/books`)
-          .then((result) => {
-            console.log(result, "ini bukuuuuuuuuuuuuuuu");
-            this.books = result.data
-          })
-          .catch((error) => {
-            console.log(error);
-          })
-      }
+
     },
     created() {
-      this.getBooks()
     },
 
     template: `
@@ -32,7 +22,12 @@ Vue.component('books', {
             <img width="200px" height="280px" :src=book.cover
                 alt="">
             <hr>
-            <div><button type="button" class="btn btn-primary">Shared on twitter</button></div>
+
+           
+            <div class="fb-share-button" :data-href="book.file" data-layout="button_count">
+            </div>
+          
+          
             </div
 
             <div class="col-md-8">

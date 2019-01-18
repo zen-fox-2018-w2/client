@@ -9,27 +9,16 @@ Vue.component('book_collections', {
   },
   props: ['url'],
   methods: {
-    // find the user data and get the booklist
     remove(id) {
-      console.log(id, '====== id')
+      axios.delete(`${this.url}/books/${id}`)
+        .then(({ data }) => {
+          let index = this.bookCollections.findIndex(x => x.id == data._id)
+          this.bookCollections.splice(index, 1)
 
-      // let temp = this.dummyData.filter(function (element) {
-      //   return element.id !== id
-      // })
-      // this.dummyData = temp
-
-      // let index = this.dummyData.findIndex(x => x.id == id)
-      // this.dummyData.splice(index, 1)
-
-        axios.delete(`${this.url}/books/${id}`)
-          .then(({data}) => {
-            let index = this.bookCollections.findIndex(x => x.id == data._id)
-            this.bookCollections.splice(index, 1)
-            // console.log(data)
-          })
-          .catch(err => {
-            console.log(err)
-          })
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
     get_file(event) {
       this.file = event.target.files[0]
@@ -40,7 +29,6 @@ Vue.component('book_collections', {
       formData.append("file", this.file);
       formData.append("description", this.description);
       formData.append("title", this.title);
-
 
       axios({
         method: "POST",
@@ -55,7 +43,7 @@ Vue.component('book_collections', {
         this.description = ""
         this.cover = ""
         this.file = ""
-
+        this.$emit('get_books')
       }).catch((err) => {
         console.log(err);
       });
@@ -63,7 +51,7 @@ Vue.component('book_collections', {
     },
     get_ownBook() {
       axios.get(`${this.url}/books`)
-        .then(({data}) => {
+        .then(({ data }) => {
           this.bookCollections = data
           console.log(data)
         })
@@ -73,7 +61,7 @@ Vue.component('book_collections', {
     }
 
   },
-  created () {
+  created() {
     this.get_ownBook()
   },
   template: `
