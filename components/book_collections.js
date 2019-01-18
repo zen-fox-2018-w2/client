@@ -4,17 +4,7 @@ Vue.component('book_collections', {
       title: "",
       description: "",
       file: "",
-      // dummyData: [
-      //   { id: 1, name: 'aaaaaa' },
-      //   { id: 2, name: 'bbbbbb' },
-      //   { id: 3, name: 'cccccc' },
-      //   { id: 4, name: 'dddddd' },
-      //   { id: 5, name: 'eeeeee' },
-      //   { id: 6, name: 'ffffff' },
-      //   { id: 7, name: 'gggggg' },
-      //   { id: 8, name: 'hhhhhh' },
-      //   { id: 9, name: 'iiiiii' },
-      // ]
+      bookCollections: []
     }
   },
   props: ['url'],
@@ -31,13 +21,15 @@ Vue.component('book_collections', {
       // let index = this.dummyData.findIndex(x => x.id == id)
       // this.dummyData.splice(index, 1)
 
-      //   axios.delete(`${url}/books`)
-      //     .then(({data}) => {
-      //       console.log(data)
-      //     })
-      //     .catch(err => {
-      //       console.log(err)
-      //     })
+        axios.delete(`${this.url}/books/${id}`)
+          .then(({data}) => {
+            let index = this.bookCollections.findIndex(x => x.id == data._id)
+            this.bookCollections.splice(index, 1)
+            // console.log(data)
+          })
+          .catch(err => {
+            console.log(err)
+          })
     },
     get_file(event) {
       this.file = event.target.files[0]
@@ -69,7 +61,20 @@ Vue.component('book_collections', {
       });
 
     },
+    get_ownBook() {
+      axios.get(`${this.url}/books`)
+        .then(({data}) => {
+          this.bookCollections = data
+          console.log(data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
 
+  },
+  created () {
+    this.get_ownBook()
   },
   template: `
 
@@ -104,15 +109,15 @@ Vue.component('book_collections', {
     <div class="card">
       <div class="card-body">
         <p class="font-weight-bold">Book Collections</p>
-        <div v-for="dummy in dummyData" class="row">
+        <div v-for="book in bookCollections" class="row">
           <div class="col-lg-6 mb-3">
 
-              {{ dummy.name }}
+              {{ book.title }}
 
           </div>
           <div class="col-lg-6">
 
-            <button v-on:click="remove(dummy.id)">remove</button>
+            <button v-on:click="remove(book._id)">remove</button>
 
           </div>
         </div>
