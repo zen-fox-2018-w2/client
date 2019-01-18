@@ -1,67 +1,68 @@
 Vue.component('navbar', {
-    data: function () {
-        return {
-          email: "",
-          password: "",
-          successReg: false,
-          failedReg: false
-        }
+  data: function () {
+    return {
+      email: "",
+      password: "",
+      successReg: false,
+      failedReg: false
+    }
+  },
+  props: ['url', 'pages'],
+  methods: {
+
+    login() {
+      axios
+        .post(`${this.url}/login`, {
+          data: {
+            email: this.email,
+            password: this.password
+          }
+        })
+        .then(({ data }) => {
+          localStorage.setItem('token', data.access_token)
+          this.email = ""
+          this.password = ""
+          this.$emit("is_login")
+
+        })
+        .catch(err => {
+          console.log(err)
+          this.email = ""
+          this.password = ""
+        })
     },
-    props: ['url'],
-    methods: {
 
-      login () {
-        axios
-          .post(`${this.url}/login`, {
-            data: {
-              email: this.email,
-              password: this.password
-            }
-          })
-          .then(({data}) => {
-            localStorage.setItem('token', data.access_token)
-            this.email = ""
-            this.password = ""
-            console.log(data)
-          })
-          .catch(err => {
-            console.log(err)
-            this.email = ""
-            this.password = ""
-          })
-      },
+    register() {
 
-      register() {
-
-        let obj = {
-          email: this.email,
-          password: this.password
-        }
-
-        axios.post(`${this.url}/register`, obj)
-          .then((response) => {
-            this.successRegister()
-            this.email = ""
-            this.password = ""
-          })
-          .catch((error) => {
-            this.failedRegister()
-            this.email = ""
-            this.password = ""
-            console.log(error.message);
-          })
-      },
-
-      successRegister() {
-        this.successReg = !this.successReg
-      },
-
-      failedRegister() {
-        this.failedReg = !this.failedReg
+      let obj = {
+        email: this.email,
+        password: this.password
       }
+
+      axios.post(`${this.url}/register`, obj)
+        .then((response) => {
+          this.successRegister()
+          this.email = ""
+          this.password = ""
+        })
+        .catch((error) => {
+          this.failedRegister()
+          this.email = ""
+          this.password = ""
+          console.log(error.message);
+        })
     },
 
-    template: `
+    successRegister() {
+      this.successReg = !this.successReg
+    },
+
+    failedRegister() {
+      this.failedReg = !this.failedReg
+    }
+  },
+
+  template: `
     <div class="navbar">
     <nav class="navbar navbar-expand-lg navbar-dark navbar-bg fixed-top">
       <div class="container">
@@ -73,10 +74,17 @@ Vue.component('navbar', {
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <form class="navbar-nav ml-auto" role="search">
             <div class="login-form">
-              <input v-model="email" type="text" placeholder="Email">
-              <input v-model="password" type="password" placeholder="Password">
-              <button v-on:click.prevent="login" type="submit">Login</button>
-              <button v-on:click.prevent="register()" type="submit">Register</button>
+              <div v-if="pages=='login'">
+                <input v-model="email" type="text" placeholder="Email">
+                <input v-model="password" type="password" placeholder="Password">
+                <button v-on:click.prevent="login" type="submit">Login</button>
+                <button v-on:click.prevent="register()" type="submit">Register</button>
+              </div>
+              <div v-if="pages=='home'">
+                <button v-on:click.prevent="$emit('logout')" type="submit">logout</button>
+              </div>
+              
+              
             </div>
           </form>
         </div>

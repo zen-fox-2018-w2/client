@@ -24,7 +24,7 @@
 <body>
   <div id="app">
     <!-- Navigation -->
-    <navbar :url="url"></navbar>
+    <navbar :url="url" @logout="logout($event)" :pages="pages" @is_login="is_login($event)"></navbar>
     <!-- n Navigation -->
 
     <!-- Page Content -->
@@ -37,11 +37,11 @@
       <div class="row">
 
         <!--profile -->
-        <book_collections v-bind:url="url"></book_collections>
+        <book_collections v-bind:url="url" @get_books="get_books($event)"></book_collections>
         <!-- n profile -->
 
         <!-- list Book -->
-        <books v-bind:url="url"></books>
+        <books v-bind:url="url" :books="books"></books>
         <!-- n list Book -->
       </div>
       <!-- n Content profile -->

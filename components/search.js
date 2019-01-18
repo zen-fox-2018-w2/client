@@ -1,22 +1,20 @@
 Vue.component('search', {
-    data: function () {
-        return {
-          keyword : '',
-          dummyData: ['Harry Potter', 'Dragon Ball', 'One Piece', 'Superman', 'Batman', 'Spiderman', 'Iron Man']
-        }
-    },
-    props: [],
-    methods: {
-      searchTitle () {
-        let keyword = new RegExp(this.keyword.toLowerCase())
-        // console.log(keyword)
-        let searchedData = this.dummyData.filter(function(elemet) {
-          return elemet.toLowerCase().match(keyword)
-        })
-        // console.log(searchedData, '======= searched')
-      }
-    },
-    template: `
+  data: function () {
+    return {
+      keyword: '',
+      dummyData: ['Harry Potter', 'Dragon Ball', 'One Piece', 'Superman', 'Batman', 'Spiderman', 'Iron Man']
+    }
+  },
+  props: [],
+  methods: {
+    searchTitle() {
+      let keyword = new RegExp(this.keyword.toLowerCase())
+      let searchedData = this.dummyData.filter(function (elemet) {
+        return elemet.toLowerCase().match(keyword)
+      })
+    }
+  },
+  template: `
     <div class="search">
         <div class="row">
 

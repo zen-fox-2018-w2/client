@@ -1,24 +1,14 @@
 Vue.component('books', {
     data: function () {
         return {
-          books: ""
+            books: ""
         }
     },
-    props: ['url'],
+    props: ['url', 'books'],
     methods: {
-      getBooks() {
-        axios.get(`http://localhost:3000/books`)
-          .then((result) => {
-            console.log(result, "ini bukuuuuuuuuuuuuuuu");
-            this.books = result.data
-          })
-          .catch((error) => {
-            console.log(error);
-          })
-      }
+
     },
     created() {
-      this.getBooks()
     },
 
     template: `
