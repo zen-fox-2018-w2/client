@@ -4,17 +4,17 @@ Vue.component('book_collections', {
       title: "",
       description: "",
       file: "",
-      // dummyData: [
-      //   { id: 1, name: 'aaaaaa' },
-      //   { id: 2, name: 'bbbbbb' },
-      //   { id: 3, name: 'cccccc' },
-      //   { id: 4, name: 'dddddd' },
-      //   { id: 5, name: 'eeeeee' },
-      //   { id: 6, name: 'ffffff' },
-      //   { id: 7, name: 'gggggg' },
-      //   { id: 8, name: 'hhhhhh' },
-      //   { id: 9, name: 'iiiiii' },
-      // ]
+      dummyData: [
+        { id: 1, name: 'aaaaaa' },
+        { id: 2, name: 'bbbbbb' },
+        { id: 3, name: 'cccccc' },
+        { id: 4, name: 'dddddd' },
+        { id: 5, name: 'eeeeee' },
+        { id: 6, name: 'ffffff' },
+        { id: 7, name: 'gggggg' },
+        { id: 8, name: 'hhhhhh' },
+        { id: 9, name: 'iiiiii' },
+      ]
     }
   },
   props: ['url'],

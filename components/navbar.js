@@ -22,6 +22,7 @@ Vue.component('navbar', {
             localStorage.setItem('token', data.access_token)
             this.email = ""
             this.password = ""
+            console.log(data)
           })
           .catch(err => {
             console.log(err)
