@@ -1,43 +1,75 @@
 Vue.component('book_collections', {
-    data: function () {
-        return {
-          dummyData: [
-            { id: 1, name: 'aaaaaa' },
-            { id: 2, name: 'bbbbbb' },
-            { id: 3, name: 'cccccc' },
-            { id: 4, name: 'dddddd' },
-            { id: 5, name: 'eeeeee' },
-            { id: 6, name: 'ffffff' },
-            { id: 7, name: 'gggggg' },
-            { id: 8, name: 'hhhhhh' },
-            { id: 9, name: 'iiiiii' },
-          ]
-        }
-    },
-    props: ['url'],
-    methods: {
-      // find the user data and get the booklist
-      remove (id) {
-        console.log(id, '====== id')
+  data: function () {
+    return {
+      title: "",
+      description: "",
+      file: "",
+      // dummyData: [
+      //   { id: 1, name: 'aaaaaa' },
+      //   { id: 2, name: 'bbbbbb' },
+      //   { id: 3, name: 'cccccc' },
+      //   { id: 4, name: 'dddddd' },
+      //   { id: 5, name: 'eeeeee' },
+      //   { id: 6, name: 'ffffff' },
+      //   { id: 7, name: 'gggggg' },
+      //   { id: 8, name: 'hhhhhh' },
+      //   { id: 9, name: 'iiiiii' },
+      // ]
+    }
+  },
+  props: ['url'],
+  methods: {
+    // find the user data and get the booklist
+    remove(id) {
+      console.log(id, '====== id')
 
-        // let temp = this.dummyData.filter(function(element) {
-        //   return element.id !== id
-        // })
-        // this.dummyData = temp
+      // let temp = this.dummyData.filter(function (element) {
+      //   return element.id !== id
+      // })
+      // this.dummyData = temp
 
-        // let index = this.dummyData.findIndex(x => x.id == id)
-        // this.dummyData.splice(index, 1)
+      // let index = this.dummyData.findIndex(x => x.id == id)
+      // this.dummyData.splice(index, 1)
 
-        //   axios.delete(`${url}/books`)
+      //   axios.delete(`${url}/books`)
       //     .then(({data}) => {
       //       console.log(data)
       //     })
       //     .catch(err => {
       //       console.log(err)
       //     })
-      }
     },
-    template: `
+    get_file(event) {
+      this.file = event.target.files[0]
+    },
+    add_file() {
+
+      let formData = new FormData();
+      formData.append("file", this.file);
+      formData.append("description", this.description);
+      formData.append("title", this.title);
+
+
+
+      axios({
+        method: "POST",
+        url: "http://localhost:3000/books",
+        data: formData
+
+      }).then((result) => {
+        this.title = ""
+        this.description = ""
+        this.cover = ""
+        this.file = ""
+
+      }).catch((err) => {
+        console.log(err);
+      });
+
+    },
+
+  },
+  template: `
     
     <div class="col-lg-4">
 
@@ -46,28 +78,22 @@ Vue.component('book_collections', {
         Add Book
       </div>
       <div class="card-body">
-        <form>
+        <form v-on:submit.prevent="add_file">
           <div class="form-group">
             <label for="exampleInputEmail1">Title</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+            <input v-model="title" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
               placeholder="title">
             <small id="emailHelp" class="form-text text-muted">Input your book title as unique as possible.</small>
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Description</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <textarea v-model="description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
           </div>
           <div class="form-group">
-            <label for="exampleFormControlFile1">Cover</label>
-            <input type="file" class="form-control-file" >
-
+            <label for="exampleFormControlFile1">File</label>
+            <input @change="get_file" type="file" class="form-control-file" id="exampleFormControlFile1">
           </div>
-          <div class="form-group">
-            <label for="exampleFormControlFile1">PDF File</label>
-            <input type="file" class="form-control-file">
-
-          </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button  type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
     </div>
