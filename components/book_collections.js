@@ -36,6 +36,7 @@ Vue.component('book_collections', {
     },
     add_file() {
 
+      let access_token = localStorage.getItem('token')
       let formData = new FormData();
       formData.append("file", this.file);
       formData.append("description", this.description);
