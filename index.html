@@ -16,7 +16,7 @@
 <body>
   <div id="app">
     <!-- Navigation -->
-    <navbar></navbar>
+    <navbar :url="url"></navbar>
     <!-- n Navigation -->
 
     <!-- Page Content -->
@@ -29,7 +29,7 @@
       <div class="row">
 
         <!--profile -->
-        <book_collections></book_collections>
+        <book_collections v-bind:url="url"></book_collections>
         <!-- n profile -->
 
         <!-- list Book -->
