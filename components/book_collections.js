@@ -43,6 +43,7 @@ Vue.component('book_collections', {
         this.description = ""
         this.cover = ""
         this.file = ""
+        this.get_ownBook()
         this.$emit('get_books')
       }).catch((err) => {
         console.log(err);
@@ -53,7 +54,6 @@ Vue.component('book_collections', {
       axios.get(`${this.url}/books`)
         .then(({ data }) => {
           this.bookCollections = data
-          console.log(data)
         })
         .catch(err => {
           console.log(err)
