@@ -35,11 +35,11 @@ Vue.component('navbar', {
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
-            <form v-on:submit.prevent="login" class="navbar-nav ml-auto" role="search">
+            <form class="navbar-nav ml-auto" role="search">
               <div class="login-form">
                 <input v-model="email" type="text" placeholder="Email">
                 <input v-model="password" type="password" placeholder="Password">
-                <button type="submit">Login</button>
+                <button v-on:click.prevent="login" type="submit">Login</button>
                 <button type="submit">Register</button>
               </div>
             </form>
