@@ -50,11 +50,13 @@ Vue.component('book_collections', {
       formData.append("title", this.title);
 
 
-
       axios({
         method: "POST",
         url: "http://localhost:3000/books",
-        data: formData
+        data: formData,
+        headers: {
+          token: localStorage.token
+        }
 
       }).then((result) => {
         this.title = ""
@@ -70,7 +72,7 @@ Vue.component('book_collections', {
 
   },
   template: `
-    
+
     <div class="col-lg-4">
 
     <div class="card">
@@ -104,18 +106,18 @@ Vue.component('book_collections', {
         <p class="font-weight-bold">Book Collections</p>
         <div v-for="dummy in dummyData" class="row">
           <div class="col-lg-6 mb-3">
-            
+
               {{ dummy.name }}
-            
+
           </div>
           <div class="col-lg-6">
-          
+
             <button v-on:click="remove(dummy.id)">remove</button>
-          
+
           </div>
         </div>
       </div>
     </div>
 
   </div>    `
-})   
+})
