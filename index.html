@@ -17,8 +17,6 @@
   <link href="css/shop-item.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
-  <!-- google -->
-  <!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
 </head>
 
 <body>
@@ -26,29 +24,31 @@
     <!-- Navigation -->
     <navbar :url="url" @logout="logout($event)" :pages="pages" @is_login="is_login($event)"></navbar>
     <!-- n Navigation -->
-
-    <!-- Page Content -->
-    <div class="container">
-      <!--search Content -->
-      <search></search>
-      <!-- n search Content -->
-
-      <!--Content profile -->
-      <div class="row">
-
-        <!--profile -->
-        <book_collections v-bind:url="url" @get_books="get_books($event)"></book_collections>
-        <!-- n profile -->
-
-        <!-- list Book -->
-        <books v-bind:url="url" :books="books"></books>
-        <!-- n list Book -->
+    <div v-if="pages=='home'">
+      <!-- Page Content -->
+      <div class="container">
+        <search :books="books"></search>
+        <div class="row">
+          <book_collections v-bind:url="url" @get_books="get_books($event)"></book_collections>
+          <books v-bind:url="url" :books="books"></books>
+        </div>
+        <!-- n Content profile -->
       </div>
-      <!-- n Content profile -->
-
+      <!-- Page Content -->
     </div>
-    <!-- Page Content -->
   </div>
+
+
+  <div id="fb-root"></div>
+  <script>(function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+
 
   <script src="components/books.js"></script>
   <script src="components/navbar.js"></script>

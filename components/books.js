@@ -22,7 +22,12 @@ Vue.component('books', {
             <img width="200px" height="280px" :src=book.cover
                 alt="">
             <hr>
-            <div><button type="button" class="btn btn-primary">Shared on twitter</button></div>
+
+           
+            <div class="fb-share-button" :data-href="book.file" data-layout="button_count">
+            </div>
+          
+          
             </div
 
             <div class="col-md-8">

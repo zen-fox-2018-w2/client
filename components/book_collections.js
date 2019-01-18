@@ -9,9 +9,7 @@ Vue.component('book_collections', {
   },
   props: ['url'],
   methods: {
-    // find the user data and get the booklist
     remove(id) {
-
       axios.delete(`${this.url}/books/${id}`)
         .then(({ data }) => {
           let index = this.bookCollections.findIndex(x => x.id == data._id)

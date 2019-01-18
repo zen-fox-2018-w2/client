@@ -1,3 +1,13 @@
+
+(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+
+
 var app = new Vue({
     el: '#app',
     name: "LibShare",
@@ -17,6 +27,7 @@ var app = new Vue({
                 })
         },
         is_login() {
+
             if (localStorage.token) {
                 this.pages = "home"
             }
@@ -32,5 +43,6 @@ var app = new Vue({
     },
     created() {
         this.get_books()
+        this.is_login()
     }
 })

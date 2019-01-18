@@ -2,17 +2,23 @@ Vue.component('search', {
   data: function () {
     return {
       keyword: '',
-      dummyData: ['Harry Potter', 'Dragon Ball', 'One Piece', 'Superman', 'Batman', 'Spiderman', 'Iron Man']
+      dummyData: ""
     }
   },
-  props: [],
+  props: ['books'],
   methods: {
-    searchTitle() {
+    search_title() {
+      console.log(this.books, "=>>>");
       let keyword = new RegExp(this.keyword.toLowerCase())
-      let searchedData = this.dummyData.filter(function (elemet) {
-        return elemet.toLowerCase().match(keyword)
+      let searchedData = this.books.filter(function (element) {
+        return dummyData.title.toLowerCase().match(keyword)
       })
+    },
+    dummy() {
+      console.log("hello");
+
     }
+
   },
   template: `
     <div class="search">
@@ -30,7 +36,7 @@ Vue.component('search', {
               <div class="col-auto">
                 <label>&nbsp;</label>
                 <div class="">
-                  <button v-on:click="searchTitle" type="submit" class="btn btn-primary mb-2">Search</button>
+                  <button @click="dummy" type="submit" class="btn btn-primary mb-2">Search</button>
                 </div>
               </div>
             </div>
